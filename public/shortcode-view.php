@@ -1,4 +1,7 @@
-<i class="devicon-amazonwebservices-original colored"></i>
+<!--Enter Parameters from Attributes array-->
+<!--<i class=" --><?php //echo $mapped['']; ?><!--"></i>-->
+
+<?php echo $mapped['name'] . ' ' . $mapped['style']; ?>
 
 <script type="text/javascript">
     (function( $ ) {

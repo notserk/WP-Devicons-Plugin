@@ -6,24 +6,41 @@
         //console.log(data);
 
         $.each(data, function(k, v){
-            items.push({text: v.name, value: v.name})
+
+            //Get the fonts
+            var fonts = v.versions.font;
+
+            items.push({
+                text: v.name,
+                value: v.name,
+                font: fonts
+            });
         });
 
-        //console.dir(items);
-
+        console.log(items[0].font);
     });
+
+
 
     tinymce.PluginManager.add('devicons', function( editor, url ) {
         editor.addButton( 'devicons', {
             title: 'Devicons',
             text: 'Devicons',
             onclick: function() {
-                
+
                 editor.windowManager.open({
-                    title: 'Hey There',
+                    title: 'Choose Devicons',
                     body: [
-                        {type: 'checkbox', name: 'title', label: 'Title', text: 'test'},
-                        {type: 'listbox', name: 'devicons', label: 'Choose Tech', 'values': items}
+                        {type: 'checkbox', name: 'color', label: 'Colored?', text: 'Colored?'},
+                        {
+                            type: 'listbox',
+                            name: 'devicons',
+                            label: 'Choose Tech',
+                            'values': items,
+                            onselect: function(){
+                                console.log(this.value());
+                            }
+                        }
 
                     ],
                     onsubmit: function(e){

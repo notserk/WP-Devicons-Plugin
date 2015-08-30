@@ -8,7 +8,14 @@
  */
 class Shortcode
 {
+
+    private $json_file;
+
     public function initialize(){
+
+        //Grab JSON file and store in devicon map property
+        $this->json_file = $this->getDevicons();
+
         //Load libs
         add_action('wp_enqueue_scripts', array($this, 'LoadDeviconsCSS'));
 
@@ -17,6 +24,7 @@ class Shortcode
 
         //Add TinyMCE Buttons
         add_action('init', array($this, 'addEditorButtons'));
+
     }
 
     public function LoadDeviconsCSS(){
@@ -32,8 +40,13 @@ class Shortcode
 
         $atts = shortcode_atts(
             array(
-                'name' => 'yo default'
+                'name' => 'Enter Name',
+                'style' => 'Enter Color/Style'
             ), $atts, 'test' );
+
+        $mapped = $this->mapDevicon($atts['name'], $atts['style']);
+
+
 
         // return 'bartag: ' . $atts['foo'] . ' ' . $atts['bar'];
 
@@ -55,4 +68,54 @@ class Shortcode
         return $buttons;
     }
 
+    private function getDevicons(){
+
+        //Get JSON file turn it into
+        $json_devicons = file_get_contents(plugin_dir_path(__FILE__) . '../libs/devicon-master/devicon.json');
+
+        if($json_devicons == true){
+            //echo 'The File was read!';
+
+            //Converted file into Associative array.
+            $json_devicons = json_decode($json_devicons, true);
+
+            return $json_devicons;
+
+        }
+        else{
+            //Fetching File failed.
+        }
+    }
+
+    private function mapDevicon($name, $style){
+
+        //Compare name
+        $json = $this->json_file;
+        $mapped = [
+            "name" => "",
+            "style" => ""
+        ];
+
+        //Iterate through the JSON File to compare
+        foreach ($json as $obj ) {
+            if($obj['name'] == $name){
+                //return $obj['name'];
+                $mapped['name'] = $obj['name'];
+
+
+                //Choose Style
+//                foreach($obj['versions']['font'] as $fonts){
+//                    if ($fonts == )
+//                }
+                for($i = 0; $i < sizeof($obj['versions']['font']); $i++){
+                    if($obj['versions']['font'][$i] == $style)
+                        $mapped['style'] = $obj['versions']['font'][$i];
+                }
+                return $mapped;
+            }
+            else{
+
+            }
+        }
+    }
 }
