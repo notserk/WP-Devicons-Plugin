@@ -1,7 +1,7 @@
 <!--Enter Parameters from Attributes array-->
-<!--<i class=" --><?php //echo $mapped['']; ?><!--"></i>-->
+<i class="devicon-<?php echo $mapped['name'].'-'.$mapped['style']; ?>"></i>
 
-<?php echo $mapped['name'] . ' ' . $mapped['style']; ?>
+<?php //echo $mapped['name'] . ' ' . $mapped['style']; ?>
 
 <script type="text/javascript">
     (function( $ ) {
