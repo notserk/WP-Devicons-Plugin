@@ -6,7 +6,7 @@
  * Date: 8/27/15
  * Time: 8:10 AM
  */
-class Shortcode
+class Devicons
 {
 
     private $json_file;
@@ -30,10 +30,17 @@ class Shortcode
     public function LoadDeviconsCSS(){
         wp_enqueue_style(
             'devicons-css',
-            plugins_url('devicons-tinymce/libs/devicon-master/devicon.css'),
+            plugins_url('devicons-tinymce/libs/devicon-master/devicon.min.css'),
             array(),
             '0.1.0'
         );
+        wp_enqueue_style('size-devicon',
+            plugins_url('devicons-tinymce/public/size-devicon.css'),
+            array(),
+            '0.1.0'
+            );
+
+
     }
 
     public function loadView($atts){
@@ -41,16 +48,21 @@ class Shortcode
         $atts = shortcode_atts(
             array(
                 'name' => 'Enter Name',
-                'style' => 'Enter Color/Style'
+                'style' => 'Enter Color/Style',
+                'colored' => 'false',
+                'size' => 'm'
             ), $atts, 'test' );
 
+        //Mapped technologies and their corresponding font styles
         $mapped = $this->mapDevicon($atts['name'], $atts['style']);
 
-
+        //return '<i class="devicon-'.$mapped['name'].'-'.$mapped['style'] . ' ' . ($atts['colored'] == 'true' ? 'colored' : '') . '"></i>';
 
         // return 'bartag: ' . $atts['foo'] . ' ' . $atts['bar'];
 
-        require_once(plugin_dir_path(__FILE__) . 'shortcode-view.php');
+
+        require(plugin_dir_path(__FILE__) . 'shortcode-view.php');
+        //require_once(plugin_dir_path(__FILE__) . 'shortcode-view.php');
     }
 
     public function addEditorButtons(){
@@ -114,7 +126,8 @@ class Shortcode
                 return $mapped;
             }
             else{
-
+                //Failed To get file
+                //Come up with 
             }
         }
     }

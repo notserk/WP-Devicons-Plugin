@@ -1,8 +1,45 @@
 (function($) {
     var devicons = [];
+
+    //Add a blank line to the dropdown list.
+    devicons.push({text:'',value:''});
+
+
     var fonts = [];
 
-    var name, style;
+    var name, style, size;
+    
+    //Create Object for Devicons
+    //var Devicons ={
+    //
+    //    technologies: 'This from the ',
+    //
+    //    fetchJSON : function(){
+    //        console.log(this.technologies);
+    //
+    //        $.getJSON('../wp-content/plugins/devicons-tinymce/libs/devicon-master/devicon.json', function(data){
+    //
+    //            $.each(data, function(k, v){
+    //
+    //                //Get the fonts
+    //                var fonts = v.versions.font;
+    //
+    //                technologies.push({
+    //                    text: v.name,
+    //                    value: v.name,
+    //                    font: fonts
+    //                });
+    //            });
+    //        });
+    //    },
+    //
+    //    icons : '',
+    //
+    //
+    //};
+    //
+    //Devicons.fetchJSON();
+    
 
     function getFonts(name){
 
@@ -27,6 +64,7 @@
         return returnedFonts;
     }
 
+    //Wrap this function up in its own method
     $.getJSON('../wp-content/plugins/devicons-tinymce/libs/devicon-master/devicon.json', function(data){
 
         //console.log(data);
@@ -42,10 +80,6 @@
                 font: fonts
             });
         });
-
-
-
-        console.dir(devicons);
     });
 
 
@@ -62,7 +96,7 @@
                         {type: 'checkbox', name: 'color', label: 'Colored?', text: 'Colored?'},
                         {
                             type: 'listbox',
-                            name: 'devicons',
+                            name: 'technologies',
                             label: 'Choose Tech',
                             'values': devicons,
                             onselect: function(e){
@@ -92,12 +126,26 @@
 
                                 })
                             }
+                        },
+                        {
+                            type: 'listbox',
+                            name: 'size',
+                            label: 'Choose Size',
+                            values: [{text: 'Small', value: 's'},
+                                {text: 'Medium', value: 'm'},
+                                {text: 'Large', value: 'l'},
+                                {text: 'Extra Large', value: 'xl'}],
+                            onselect: function(e){
+                                size = this.value();
+                                //console.log(this.value());
+                            }
                         }
 
                     ],
                     onsubmit: function(e){
-                        editor.insertContent('[devicons name=' + '"' + name + '"' + '  style=' + '"' + style + '"' + ']');
-                        //console.log(devicons);
+                        //console.log(e.data.color);
+                        editor.insertContent('[devicons name=' + '"' + name + '"' + '  style=' + '"' + style + '"' + ' colored=' + '"' + e.data.color + '"' + ' size=' + '"' + size + '"' + ']');
+                        //console.log(technologies);
                     }
                 })
             }
