@@ -1,5 +1,5 @@
 <!--Enter Parameters from Attributes array-->
-<i class="devicon-<?php echo $mapped['name'].'-'.$mapped['style'] . ' ' . ($atts['colored'] == 'true' ? 'colored' : ''); echo ' dev-size-'. $atts['size']?>  "></i>
+<i class="devicon-<?php echo $mapped['name'].'-'.$mapped['style'] . ' ' . ($atts['colored'] == 'true' ? 'colored' : ''); echo ' dev-size-'. $atts['size']?> "></i>
 
 <style>
     .dev-size-s{

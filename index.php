@@ -32,7 +32,7 @@ if ( ! defined( 'WPINC' ) ) {
 //Register Shortcode
 require_once(plugin_dir_path(__FILE__) . 'public/shortcode-class.php');
 
-$devicons = new Shortcode();
+$devicons = new Devicons();
 $devicons->initialize();
 
 
