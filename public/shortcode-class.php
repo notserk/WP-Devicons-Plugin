@@ -27,15 +27,16 @@ class Devicons
 
     }
 
+    //Load all necessary CSS files
     public function LoadDeviconsCSS(){
         wp_enqueue_style(
             'devicons-css',
-            plugins_url('devicons-tinymce/libs/devicon-master/devicon.min.css'),
+            plugins_url('devicons/libs/devicon-master/devicon.min.css'),
             array(),
             '0.1.0'
         );
         wp_enqueue_style('size-devicon',
-            plugins_url('devicons-tinymce/public/size-devicon.css'),
+            plugins_url('devicons/public/size-devicon.css'),
             array(),
             '0.1.0'
             );
@@ -43,6 +44,7 @@ class Devicons
 
     }
 
+    //Handles both the view and parameters for the shortcode
     public function loadView($atts){
 
         $atts = shortcode_atts(
@@ -71,7 +73,7 @@ class Devicons
     }
 
     public function devicons_add_buttons($plugin_array){
-        $plugin_array['devicons'] = plugins_url('devicons-tinymce/public/editor-button.js');
+        $plugin_array['devicons'] = plugins_url('devicons/public/editor-button.js');
         return $plugin_array;
     }
 
@@ -113,12 +115,6 @@ class Devicons
             if($obj['name'] == $name){
                 //return $obj['name'];
                 $mapped['name'] = $obj['name'];
-
-
-                //Choose Style
-//                foreach($obj['versions']['font'] as $fonts){
-//                    if ($fonts == )
-//                }
                 for($i = 0; $i < sizeof($obj['versions']['font']); $i++){
                     if($obj['versions']['font'][$i] == $style)
                         $mapped['style'] = $obj['versions']['font'][$i];
@@ -127,7 +123,7 @@ class Devicons
             }
             else{
                 //Failed To get file
-                //Come up with 
+                //Handle Error
             }
         }
     }

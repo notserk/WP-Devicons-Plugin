@@ -5,8 +5,10 @@
     devicons.push({text:'',value:''});
 
 
+    //For each Devicon, there's many fonts
     var fonts = [];
 
+    //Variables to hold data retrieve from form.
     var name, style, size;
     
     //Create Object for Devicons
@@ -41,6 +43,7 @@
     //Devicons.fetchJSON();
     
 
+    //Retrieves the list of fonts for each devicon.
     function getFonts(name){
 
         var returnedFonts = [];
@@ -65,7 +68,7 @@
     }
 
     //Wrap this function up in its own method
-    $.getJSON('../wp-content/plugins/devicons-tinymce/libs/devicon-master/devicon.json', function(data){
+    $.getJSON('../wp-content/plugins/devicons/libs/devicon-master/devicon.json', function(data){
 
         //console.log(data);
 
@@ -89,7 +92,6 @@
             title: 'Devicons',
             text: 'Devicons',
             onclick: function() {
-
                 editor.windowManager.open({
                     title: 'Choose Devicons',
                     body: [
@@ -98,17 +100,10 @@
                             type: 'listbox',
                             name: 'technologies',
                             label: 'Choose Tech',
-                            'values': devicons,
+                            values: devicons,
                             onselect: function(e){
-                                //console.log(this.value());
-
                                 name = this.value();
-
-                                console.dir(devicons);
-
                                 fonts = getFonts(name);
-                                console.dir(fonts);
-
                                 editor.windowManager.open({
                                     title: 'Choose',
                                     body: [
@@ -116,7 +111,7 @@
                                             type: 'listbox',
                                             name: 'go',
                                             label: 'Choose Style:',
-                                            'values': fonts,
+                                            values: fonts,
                                             onselect: function(e){
                                                 style = this.value();
                                                 //console.log(this.value());
@@ -143,9 +138,8 @@
 
                     ],
                     onsubmit: function(e){
-                        //console.log(e.data.color);
+                        console.log(e.data.size);
                         editor.insertContent('[devicons name=' + '"' + name + '"' + '  style=' + '"' + style + '"' + ' colored=' + '"' + e.data.color + '"' + ' size=' + '"' + size + '"' + ']');
-                        //console.log(technologies);
                     }
                 })
             }
