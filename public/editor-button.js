@@ -22,6 +22,8 @@
                     //console.log(v.font[i]);
                 }
             }
+
+            
         });
 
         return returnedFonts;
