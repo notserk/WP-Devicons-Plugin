@@ -1,7 +1,24 @@
 <!--Enter Parameters from Attributes array-->
-<i class="devicon-<?php echo $mapped['name'].'-'.$mapped['style']; ?>"></i>
+<i class="devicon-<?php echo $mapped['name'].'-'.$mapped['style'] . ' ' . ($atts['colored'] == 'true' ? 'colored' : ''); echo ' dev-size-'. $atts['size']?> "></i>
 
-<?php //echo $mapped['name'] . ' ' . $mapped['style']; ?>
+<style>
+    .dev-size-s{
+        font-size: 5em;
+    }
+
+    .dev-size-m{
+        font-size: 7em;
+    }
+
+    .dev-size-l{
+        font-size: 10em;
+    }
+
+    .dev-size-xl{
+        font-size: 12em;
+    }
+</style>
+
 
 <script type="text/javascript">
     (function( $ ) {
@@ -19,14 +36,14 @@
          * ready:
          *
          * $(function() {
-	 *
-	 * });
+     *
+     * });
          *
          * Or when the window is loaded:
          *
          * $( window ).load(function() {
-	 *
-	 * });
+     *
+     * });
          *
          * ...and so on.
          *
@@ -38,12 +55,12 @@
          */
 
         //$('#dev-forms').submit(function(){
-        //	$(this).ajaxSubmit({
-        //		success: function(data){
-        //			$('#result').html(data);
-        //		}
-        //	});
-        //	return false;
+        //  $(this).ajaxSubmit({
+        //      success: function(data){
+        //          $('#result').html(data);
+        //      }
+        //  });
+        //  return false;
         //});
 
         //alert('Hey it Works');

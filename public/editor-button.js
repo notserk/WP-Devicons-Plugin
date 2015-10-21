@@ -1,9 +1,49 @@
 (function($) {
     var devicons = [];
+
+    //Add a blank line to the dropdown list.
+    devicons.push({text:'',value:''});
+
+
+    //For each Devicon, there's many fonts
     var fonts = [];
 
-    var name, style;
+    //Variables to hold data retrieve from form.
+    var name, style, size;
+    
+    //Create Object for Devicons
+    //var Devicons ={
+    //
+    //    technologies: 'This from the ',
+    //
+    //    fetchJSON : function(){
+    //        console.log(this.technologies);
+    //
+    //        $.getJSON('../wp-content/plugins/devicons-tinymce/libs/devicon-master/devicon.json', function(data){
+    //
+    //            $.each(data, function(k, v){
+    //
+    //                //Get the fonts
+    //                var fonts = v.versions.font;
+    //
+    //                technologies.push({
+    //                    text: v.name,
+    //                    value: v.name,
+    //                    font: fonts
+    //                });
+    //            });
+    //        });
+    //    },
+    //
+    //    icons : '',
+    //
+    //
+    //};
+    //
+    //Devicons.fetchJSON();
+    
 
+    //Retrieves the list of fonts for each devicon.
     function getFonts(name){
 
         var returnedFonts = [];
@@ -29,7 +69,8 @@
         return returnedFonts;
     }
 
-    $.getJSON('../wp-content/plugins/devicons-tinymce/libs/devicon-master/devicon.json', function(data){
+    //Wrap this function up in its own method
+    $.getJSON('../wp-content/plugins/devicons/libs/devicon-master/devicon.json', function(data){
 
         //console.log(data);
 
@@ -44,10 +85,6 @@
                 font: fonts
             });
         });
-
-
-
-        console.dir(devicons);
     });
 
 
@@ -57,26 +94,18 @@
             title: 'Devicons',
             text: 'Devicons',
             onclick: function() {
-
                 editor.windowManager.open({
                     title: 'Choose Devicons',
                     body: [
                         {type: 'checkbox', name: 'color', label: 'Colored?', text: 'Colored?'},
                         {
                             type: 'listbox',
-                            name: 'devicons',
+                            name: 'technologies',
                             label: 'Choose Tech',
-                            'values': devicons,
+                            values: devicons,
                             onselect: function(e){
-                                //console.log(this.value());
-
                                 name = this.value();
-
-                                console.dir(devicons);
-
                                 fonts = getFonts(name);
-                                console.dir(fonts);
-
                                 editor.windowManager.open({
                                     title: 'Choose',
                                     body: [
@@ -84,7 +113,7 @@
                                             type: 'listbox',
                                             name: 'go',
                                             label: 'Choose Style:',
-                                            'values': fonts,
+                                            values: fonts,
                                             onselect: function(e){
                                                 style = this.value();
                                                 //console.log(this.value());
@@ -94,12 +123,25 @@
 
                                 })
                             }
+                        },
+                        {
+                            type: 'listbox',
+                            name: 'size',
+                            label: 'Choose Size',
+                            values: [{text: 'Small', value: 's'},
+                                {text: 'Medium', value: 'm'},
+                                {text: 'Large', value: 'l'},
+                                {text: 'Extra Large', value: 'xl'}],
+                            onselect: function(e){
+                                size = this.value();
+                                //console.log(this.value());
+                            }
                         }
 
                     ],
                     onsubmit: function(e){
-                        editor.insertContent('[devicons name=' + '"' + name + '"' + '  style=' + '"' + style + '"' + ']');
-                        //console.log(devicons);
+                        console.log(e.data.size);
+                        editor.insertContent('[devicons name=' + '"' + name + '"' + '  style=' + '"' + style + '"' + ' colored=' + '"' + e.data.color + '"' + ' size=' + '"' + size + '"' + ']');
                     }
                 })
             }

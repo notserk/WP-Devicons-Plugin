@@ -6,7 +6,7 @@
  * Date: 8/27/15
  * Time: 8:10 AM
  */
-class Shortcode
+class Devicons
 {
 
     private $json_file;
@@ -27,30 +27,44 @@ class Shortcode
 
     }
 
+    //Load all necessary CSS files
     public function LoadDeviconsCSS(){
         wp_enqueue_style(
             'devicons-css',
-            plugins_url('devicons-tinymce/libs/devicon-master/devicon.css'),
+            plugins_url('devicons/libs/devicon-master/devicon.min.css'),
             array(),
             '0.1.0'
         );
+        wp_enqueue_style('size-devicon',
+            plugins_url('devicons/public/size-devicon.css'),
+            array(),
+            '0.1.0'
+            );
+
+
     }
 
+    //Handles both the view and parameters for the shortcode
     public function loadView($atts){
 
         $atts = shortcode_atts(
             array(
                 'name' => 'Enter Name',
-                'style' => 'Enter Color/Style'
+                'style' => 'Enter Color/Style',
+                'colored' => 'false',
+                'size' => 'm'
             ), $atts, 'test' );
 
+        //Mapped technologies and their corresponding font styles
         $mapped = $this->mapDevicon($atts['name'], $atts['style']);
 
-
+        //return '<i class="devicon-'.$mapped['name'].'-'.$mapped['style'] . ' ' . ($atts['colored'] == 'true' ? 'colored' : '') . '"></i>';
 
         // return 'bartag: ' . $atts['foo'] . ' ' . $atts['bar'];
 
-        require_once(plugin_dir_path(__FILE__) . 'shortcode-view.php');
+
+        require(plugin_dir_path(__FILE__) . 'shortcode-view.php');
+        //require_once(plugin_dir_path(__FILE__) . 'shortcode-view.php');
     }
 
     public function addEditorButtons(){
@@ -59,7 +73,7 @@ class Shortcode
     }
 
     public function devicons_add_buttons($plugin_array){
-        $plugin_array['devicons'] = plugins_url('devicons-tinymce/public/editor-button.js');
+        $plugin_array['devicons'] = plugins_url('devicons/public/editor-button.js');
         return $plugin_array;
     }
 
@@ -101,12 +115,6 @@ class Shortcode
             if($obj['name'] == $name){
                 //return $obj['name'];
                 $mapped['name'] = $obj['name'];
-
-
-                //Choose Style
-//                foreach($obj['versions']['font'] as $fonts){
-//                    if ($fonts == )
-//                }
                 for($i = 0; $i < sizeof($obj['versions']['font']); $i++){
                     if($obj['versions']['font'][$i] == $style)
                         $mapped['style'] = $obj['versions']['font'][$i];
@@ -114,7 +122,8 @@ class Shortcode
                 return $mapped;
             }
             else{
-
+                //Failed To get file
+                //Handle Error
             }
         }
     }
