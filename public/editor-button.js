@@ -62,6 +62,8 @@
                     //console.log(v.font[i]);
                 }
             }
+
+            
         });
 
         return returnedFonts;
@@ -87,62 +89,132 @@
 
 
 
+    //tinymce.PluginManager.add('devicons', function( editor, url ) {
+    //    editor.addButton( 'devicons', {
+    //        title: 'Devicons',
+    //        text: 'Devicons',
+    //        onclick: function() {
+    //            editor.windowManager.open({
+    //                title: 'Choose Devicons',
+    //                body: [
+    //                    {type: 'checkbox', name: 'color', label: 'Colored?', text: 'Colored?'},
+    //                    {
+    //                        type: 'listbox',
+    //                        name: 'technologies',
+    //                        label: 'Choose Tech',
+    //                        values: devicons,
+    //                        onselect: function(e){
+    //                            name = this.value();
+    //                            fonts = getFonts(name);
+    //                            editor.windowManager.open({
+    //                                title: 'Choose',
+    //                                body: [
+    //                                    {
+    //                                        type: 'listbox',
+    //                                        name: 'go',
+    //                                        label: 'Choose Style:',
+    //                                        values: fonts,
+    //                                        onselect: function(e){
+    //                                            style = this.value();
+    //                                            //console.log(this.value());
+    //                                        }
+    //                                    }
+    //                                ]
+    //
+    //                            })
+    //                        }
+    //                    },
+    //                    {
+    //                        type: 'listbox',
+    //                        name: 'size',
+    //                        label: 'Choose Size',
+    //                        values: [{text: 'Small', value: 's'},
+    //                            {text: 'Medium', value: 'm'},
+    //                            {text: 'Large', value: 'l'},
+    //                            {text: 'Extra Large', value: 'xl'}],
+    //                        onselect: function(e){
+    //                            size = this.value();
+    //                            //console.log(this.value());
+    //                        }
+    //                    }
+    //
+    //                ],
+    //                onsubmit: function(e){
+    //                    console.log(e.data.size);
+    //                    editor.insertContent('[devicons name=' + '"' + name + '"' + '  style=' + '"' + style + '"' + ' colored=' + '"' + e.data.color + '"' + ' size=' + '"' + size + '"' + ']');
+    //                }
+    //            })
+    //        }
+    //    });
+    //});
+
     tinymce.PluginManager.add('devicons', function( editor, url ) {
         editor.addButton( 'devicons', {
             title: 'Devicons',
             text: 'Devicons',
             onclick: function() {
-                editor.windowManager.open({
+                var wind = editor.windowManager.open({
                     title: 'Choose Devicons',
                     body: [
-                        {type: 'checkbox', name: 'color', label: 'Colored?', text: 'Colored?'},
-                        {
-                            type: 'listbox',
-                            name: 'technologies',
-                            label: 'Choose Tech',
-                            values: devicons,
-                            onselect: function(e){
-                                name = this.value();
-                                fonts = getFonts(name);
-                                editor.windowManager.open({
-                                    title: 'Choose',
-                                    body: [
-                                        {
-                                            type: 'listbox',
-                                            name: 'go',
-                                            label: 'Choose Style:',
-                                            values: fonts,
-                                            onselect: function(e){
-                                                style = this.value();
-                                                //console.log(this.value());
-                                            }
-                                        }
-                                    ]
+                        {type: 'checkbox', name: 'color', label: 'Colored?', text: 'Colored?'}
 
-                                })
-                            }
-                        },
-                        {
-                            type: 'listbox',
-                            name: 'size',
-                            label: 'Choose Size',
-                            values: [{text: 'Small', value: 's'},
-                                {text: 'Medium', value: 'm'},
-                                {text: 'Large', value: 'l'},
-                                {text: 'Extra Large', value: 'xl'}],
-                            onselect: function(e){
-                                size = this.value();
-                                //console.log(this.value());
-                            }
-                        }
+
+                        //{
+                        //    type: 'listbox',
+                        //    name: 'technologies',
+                        //    label: 'Choose Tech',
+                        //    values: devicons,
+                        //    onselect: function(e){
+                        //        name = this.value();
+                        //        fonts = getFonts(name);
+                        //        editor.windowManager.open({
+                        //            title: 'Choose',
+                        //            body: [
+                        //                {
+                        //                    type: 'listbox',
+                        //                    name: 'go',
+                        //                    label: 'Choose Style:',
+                        //                    values: fonts,
+                        //                    onselect: function(e){
+                        //                        style = this.value();
+                        //                        //console.log(this.value());
+                        //                    }
+                        //                }
+                        //            ]
+                        //
+                        //        })
+                        //    }
+                        //},
+                        //{
+                        //    type: 'listbox',
+                        //    name: 'size',
+                        //    label: 'Choose Size',
+                        //    values: [{text: 'Small', value: 's'},
+                        //        {text: 'Medium', value: 'm'},
+                        //        {text: 'Large', value: 'l'},
+                        //        {text: 'Extra Large', value: 'xl'}],
+                        //    onselect: function(e){
+                        //        size = this.value();
+                        //        //console.log(this.value());
+                        //    }
+                        //}
 
                     ],
                     onsubmit: function(e){
                         console.log(e.data.size);
                         editor.insertContent('[devicons name=' + '"' + name + '"' + '  style=' + '"' + style + '"' + ' colored=' + '"' + e.data.color + '"' + ' size=' + '"' + size + '"' + ']');
                     }
-                })
+                });
+
+                //console.log(wind.find('#color'))
+
+                var checkbox = wind.find('#color');
+                console.log(checkbox);
+
+                //checkbox.disabled(true);
             }
         });
     });
+
+
 })(jQuery);
