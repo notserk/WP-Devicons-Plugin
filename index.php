@@ -14,7 +14,7 @@
  * @wordpress-plugin
  * Plugin Name:       Devicons-TinyMCE
  * Plugin URI:        krestonshirley.me/devicons
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       Devicons allows for developers to display devicons beautifully on their site.
  * Version:           1.0.0
  * Author:            Kreston
  * Author URI:        krestonshirley.me
