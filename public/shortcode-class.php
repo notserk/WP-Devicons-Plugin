@@ -25,6 +25,9 @@ class Devicons
         //Add TinyMCE Buttons
         add_action('init', array($this, 'addEditorButtons'));
 
+        //Add media button
+        add_action('media_buttons', array($this, 'add_devicon_media_button'));
+
     }
 
     //Load all necessary CSS files
@@ -41,7 +44,16 @@ class Devicons
             '0.1.0'
             );
 
+        //echo plugins_url('wp-devicons/public/dist/output/index_bundle.js');
+        //Load React JS
 
+
+    }
+
+    public function add_devicon_media_button(){
+        //attach react app here
+        wp_enqueue_script('hello-react', plugin_dir_url( __FILE__ ) . 'dist/output/index_bundle.js', array(), '1.0', true);
+        echo '<div id="root"></div>';
     }
 
     //Handles both the view and parameters for the shortcode
