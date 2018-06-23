@@ -22,6 +22,8 @@
     "browser-sync": "^2.24.4",
     "browser-sync-webpack-plugin": "^2.2.2",
     "css-loader": "^0.28.11",
+    "react-autosuggest": "^9.3.4",
+    "react-suggest": "^0.0.1",
     "style-loader": "^0.21.0",
     "webpack-cli": "^2.1.3"
   }
