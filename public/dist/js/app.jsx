@@ -9,6 +9,7 @@ import Modal from '@material-ui/core/Modal';
 import Typography from '@material-ui/core/Typography';
 import Devicons from './devicon.jsx';
 
+
 function rand() {
     return Math.round(Math.random() * 20) - 10;
 }
@@ -51,7 +52,7 @@ class App extends React.Component{
 
     render() {
         const { classes } = this.props;
-        console.log(classes);
+        //console.log(classes);
         return (
             <div>
                 <Button onClick={this.handleOpen} variant="contained" color="primary">
@@ -61,17 +62,9 @@ class App extends React.Component{
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"
                     open={this.state.open}
-                    onClose={this.handleClose}
-                >
+                    onClose={this.handleClose}>
                     <div style={getModalStyle()} className={classes.paper} >
-                        <Typography variant="title" id="modal-title">
-                            Text in a modal
-                        </Typography>
-                        <Typography variant="subheading" id="simple-modal-description">
-                            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                        </Typography>
-                        <Devicons/>
-
+                        <Devicons submit={this.handleClose}/>
                     </div>
                 </Modal>
             </div>

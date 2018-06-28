@@ -12,7 +12,6 @@ class Devicons
     private $json_file;
 
     public function initialize(){
-
         //Grab JSON file and store in devicon map property
         $this->json_file = $this->getDevicons();
 
@@ -27,32 +26,26 @@ class Devicons
 
         //Add media button
         add_action('media_buttons', array($this, 'add_devicon_media_button'));
-
     }
 
     //Load all necessary CSS files
     public function LoadDeviconsCSS(){
         wp_enqueue_style(
-            'devicons-css',
-            plugins_url('devicons/libs/devicon-master/devicon.min.css'),
+            'devicons-css', 'https://cdn.rawgit.com/konpa/devicon/68b52f74/devicon.min.css',
             array(),
             '0.1.0'
         );
-        wp_enqueue_style('size-devicon',
-            plugins_url('devicons/public/size-devicon.css'),
-            array(),
-            '0.1.0'
-            );
-
-        //echo plugins_url('wp-devicons/public/dist/output/index_bundle.js');
-        //Load React JS
-
-
+//        wp_enqueue_style('size-devicon',
+//            plugins_url('devicons/public/size-devicon.css'),
+//            array(),
+//            '0.1.0'
+//            );
     }
 
     public function add_devicon_media_button(){
         //attach react app here
         wp_enqueue_script('hello-react', plugin_dir_url( __FILE__ ) . 'dist/output/index_bundle.js', array(), '1.0', true);
+        wp_enqueue_style('devicon-min-css', 'https://cdn.rawgit.com/konpa/devicon/68b52f74/devicon.min.css', array(), '1.0');
         echo '<div id="root"></div>';
     }
 
@@ -69,14 +62,7 @@ class Devicons
 
         //Mapped technologies and their corresponding font styles
         $mapped = $this->mapDevicon($atts['name'], $atts['style']);
-
-        //return '<i class="devicon-'.$mapped['name'].'-'.$mapped['style'] . ' ' . ($atts['colored'] == 'true' ? 'colored' : '') . '"></i>';
-
-        // return 'bartag: ' . $atts['foo'] . ' ' . $atts['bar'];
-
-
         require(plugin_dir_path(__FILE__) . 'shortcode-view.php');
-        //require_once(plugin_dir_path(__FILE__) . 'shortcode-view.php');
     }
 
     public function addEditorButtons(){
@@ -100,7 +86,6 @@ class Devicons
         $json_devicons = file_get_contents(plugin_dir_path(__FILE__) . '../libs/devicon-master/devicon.json');
 
         if($json_devicons == true){
-            //echo 'The File was read!';
 
             //Converted file into Associative array.
             $json_devicons = json_decode($json_devicons, true);
@@ -124,18 +109,18 @@ class Devicons
 
         //Iterate through the JSON File to compare
         foreach ($json as $obj ) {
-            if($obj['name'] == $name){
-                //return $obj['name'];
+            if($obj['name'] === $name){
+
                 $mapped['name'] = $obj['name'];
+
                 for($i = 0; $i < sizeof($obj['versions']['font']); $i++){
-                    if($obj['versions']['font'][$i] == $style)
+                    if($obj['versions']['font'][$i] === $style)
                         $mapped['style'] = $obj['versions']['font'][$i];
                 }
                 return $mapped;
             }
             else{
-                //Failed To get file
-                //Handle Error
+
             }
         }
     }

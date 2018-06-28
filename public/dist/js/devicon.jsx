@@ -4,6 +4,8 @@ import devicons from './devicons.json';
 import Autosuggest from 'react-autosuggest';
 import DeviconStyle from './devicon-style.jsx';
 import ChosenDevicons from './chosen-icon.jsx';
+import Grid from '@material-ui/core/Grid';
+
 
 const getSuggestions = value => {
     const inputValue = value.trim().toLowerCase();
@@ -27,8 +29,8 @@ const renderSuggestion = suggestion => (
 );
 
 class Devicons extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             value: '',
             suggestions: [],
@@ -57,6 +59,16 @@ class Devicons extends Component {
         });
     };
 
+    itemStyle = {
+        suggestion: {
+            cursor: 'pointer'
+        }
+    };
+
+    sendDataToEditor  = () => {
+        window.wp.media.editor.insert('Test Hey');
+    }
+
     render() {
         const { value, suggestions } = this.state;
 
@@ -68,22 +80,22 @@ class Devicons extends Component {
         };
         return (
             <div>
-                <Autosuggest
-                    suggestions={suggestions}
-                    onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                    onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                    getSuggestionValue={getSuggestionValue}
-                    renderSuggestion={renderSuggestion}
-                    inputProps={inputProps}
-                />
-                {
-                    //Chosen Devicon will show here
-
-                }
-
-                <ChosenDevicons devicon={this.state.value} />
-
-
+                <Grid container spacing={8}>
+                    <Grid item xs={12} sm={6}>
+                        <Autosuggest
+                            suggestions={suggestions}
+                            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                            getSuggestionValue={getSuggestionValue}
+                            renderSuggestion={renderSuggestion}
+                            inputProps={inputProps}
+                            theme={this.itemStyle}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <ChosenDevicons submit={this.props.submit} devicon={this.state.value} />
+                    </Grid>
+                </Grid>
             </div>
         );
     }

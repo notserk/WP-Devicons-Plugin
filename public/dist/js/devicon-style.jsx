@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 
 
 const fontStyle = {
-    fontSize: '20em',
+    fontSize: '2em',
     cursor: 'pointer'
 };
 

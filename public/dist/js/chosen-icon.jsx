@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import devicons from './devicons.json';
 import DeviconStyle from './devicon-style.jsx'
+import Button from '@material-ui/core/Button';
 
 const fontStyle = {
-    fontSize: '40em',
+    fontSize: '10em',
     cursor: 'pointer'
 };
+
 
 const getFontStyle = name => {
 
@@ -37,21 +39,38 @@ class ChosenDevicons extends Component {
 
             return {values: prevValues}
         });
-    }
+    };
+
+    //Map chosen Devicons to output shortcode
+    mapDevicons = () => {
+        //run after the
+
+        let returnedIcons = '';
+
+        this.state.values.forEach( (devicon) => {
+            returnedIcons += '[devicons name=' + '"' + devicon.name + '"' + '  style=' + '"' + devicon.style + '"' + ' colored=' + '"' + (devicon.colored ? " colored" : "") + '"]'
+        });
+
+        //send text back to editor
+        window.wp.media.editor.insert(returnedIcons);
+    };
 
     //All we want to do is display the icon that was chosen
     render() {
         let devicons = this.state.values;
-        console.log('where oh where', devicons);
 
         return(
             <div>
                 <DeviconStyle style={getFontStyle} devicon={this.props.devicon} handle={this.choseDevicon} />
+                <h2>Chosen Devicons</h2>
                 {
                     devicons.map((devicon) => {
-                        return <i className={"devicon-" + devicon.name + "-" + devicon.style + (devicon.colored ? " colored" : "")}></i>
+                        return <i style={fontStyle} className={"devicon-" + devicon.name + "-" + devicon.style + (devicon.colored ? " colored" : "")}></i>
                     })
                 }
+                <Button onClick={this.mapDevicons} variant="contained">
+                    Default
+                </Button>
             </div>
         );
     }
