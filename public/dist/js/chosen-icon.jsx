@@ -20,7 +20,7 @@ const getFontStyle = name => {
     }
 
     return [];
-}
+};
 
 class ChosenDevicons extends Component {
     constructor(props) {
@@ -39,6 +39,8 @@ class ChosenDevicons extends Component {
 
             return {values: prevValues}
         });
+
+
     };
 
     //Map chosen Devicons to output shortcode
@@ -48,11 +50,14 @@ class ChosenDevicons extends Component {
         let returnedIcons = '';
 
         this.state.values.forEach( (devicon) => {
-            returnedIcons += '[devicons name=' + '"' + devicon.name + '"' + '  style=' + '"' + devicon.style + '"' + ' colored=' + '"' + (devicon.colored ? " colored" : "") + '"]'
+            returnedIcons += '[devicons name=' + '"' + devicon.name + '"' + '  style=' + '"' + devicon.style + '"' + ' colored=' + '"' + (devicon.colored ? "true" : "") + '"]'
         });
 
         //send text back to editor
         window.wp.media.editor.insert(returnedIcons);
+
+        //Close the modal
+        this.props.submit();
     };
 
     //All we want to do is display the icon that was chosen
@@ -69,7 +74,7 @@ class ChosenDevicons extends Component {
                     })
                 }
                 <Button onClick={this.mapDevicons} variant="contained">
-                    Default
+                    Add Shortcode
                 </Button>
             </div>
         );

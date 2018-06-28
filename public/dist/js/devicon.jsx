@@ -23,7 +23,7 @@ const getSuggestionValue = suggestion => suggestion.name;
 
 // Use your imagination to render suggestions.
 const renderSuggestion = suggestion => (
-    <div className="test">
+    <div>
         {suggestion.name}
     </div>
 );
@@ -67,7 +67,7 @@ class Devicons extends Component {
 
     sendDataToEditor  = () => {
         window.wp.media.editor.insert('Test Hey');
-    }
+    };
 
     render() {
         const { value, suggestions } = this.state;

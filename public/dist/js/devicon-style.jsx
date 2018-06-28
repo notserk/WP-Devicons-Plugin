@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 //Receive the object and display list of styles and output the result
 
-
-
 const fontStyle = {
     fontSize: '2em',
     cursor: 'pointer'

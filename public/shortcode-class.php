@@ -22,7 +22,7 @@ class Devicons
         add_shortcode('devicons', array($this, 'loadView'));
 
         //Add TinyMCE Buttons
-        add_action('init', array($this, 'addEditorButtons'));
+        //add_action('init', array($this, 'addEditorButtons'));
 
         //Add media button
         add_action('media_buttons', array($this, 'add_devicon_media_button'));
