@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import Grid from '@material-ui/core/Grid';
 
 //Receive the object and display list of styles and output the result
 
 const fontStyle = {
-    fontSize: '2em',
+    fontSize: '5em',
     cursor: 'pointer'
 };
 
@@ -20,18 +21,18 @@ class DeviconStyle extends Component {
             console.log(deviconStyles[0].versions.font);
 
             return (
-                <div>
+                <Grid container spacing={16}>
                     {
                         deviconStyles[0].versions.font.map((devStyle) => {
                             return (
-                                <div>
+                                <Grid item xs={12} sm={6}>
                                     <i onClick={() => this.props.handle(this.props.devicon, devStyle, true)}  style={fontStyle} className={"devicon-" + this.props.devicon + "-" + devStyle + " colored"}></i>
                                     <i onClick={() => this.props.handle(this.props.devicon, devStyle, false)} style={fontStyle} className={"devicon-" + this.props.devicon + "-" + devStyle}></i>
-                                </div>
+                                </Grid>
                             );
                         })
                     }
-                </div>
+                </Grid>
             )
         }
         return (

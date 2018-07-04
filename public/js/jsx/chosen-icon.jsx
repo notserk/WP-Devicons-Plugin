@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import devicons from './devicons.json';
 import DeviconStyle from './devicon-style.jsx'
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
 const fontStyle = {
-    fontSize: '10em',
+    fontSize: '7vw',
     cursor: 'pointer'
 };
 
@@ -65,18 +66,22 @@ class ChosenDevicons extends Component {
         let devicons = this.state.values;
 
         return(
-            <div>
+            <Grid container spacing={24}>
                 <DeviconStyle style={getFontStyle} devicon={this.props.devicon} handle={this.choseDevicon} />
-                <h2>Chosen Devicons</h2>
+                <h2>Selected Devicons</h2>
                 {
                     devicons.map((devicon) => {
-                        return <i style={fontStyle} className={"devicon-" + devicon.name + "-" + devicon.style + (devicon.colored ? " colored" : "")}></i>
+                        return(
+                            <Grid item xs={12} sm={6}>
+                                <i style={fontStyle} className={"devicon-" + devicon.name + "-" + devicon.style + (devicon.colored ? " colored" : "")}></i>
+                            </Grid>
+                        )
                     })
                 }
                 <Button onClick={this.mapDevicons} variant="contained">
-                    Add Shortcode
+                    Add Shortcode{this.state.values.length > 1 ? 's' : ''}
                 </Button>
-            </div>
+            </Grid>
         );
     }
 }

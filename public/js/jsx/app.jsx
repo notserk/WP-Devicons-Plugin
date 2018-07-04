@@ -1,12 +1,8 @@
-/*
-    ./client/components/App.jsx
-*/
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import Typography from '@material-ui/core/Typography';
 import Devicons from './devicon.jsx';
 
 
@@ -23,7 +19,7 @@ function getModalStyle() {
         left: `${left}%`,
         transform: `translate(-${top}%, -${left}%)`,
         position: 'absolute',
-        width: '400px'
+        width: '500px'
     };
 }
 
@@ -56,7 +52,7 @@ class App extends React.Component{
         return (
             <div>
                 <Button onClick={this.handleOpen} variant="contained" color="primary">
-                    Devicon
+                    Choose Devicons
                 </Button>
                 <Modal
                     aria-labelledby="simple-modal-title"

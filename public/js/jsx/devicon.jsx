@@ -7,15 +7,6 @@ import ChosenDevicons from './chosen-icon.jsx';
 import Grid from '@material-ui/core/Grid';
 
 
-const getSuggestions = value => {
-    const inputValue = value.trim().toLowerCase();
-    const inputLength = inputValue.length;
-
-    return inputLength === 0 ? [] : devicons.filter(lang =>
-        lang.name.toLowerCase().slice(0, inputLength) === inputValue
-    );
-};
-
 // When suggestion is clicked, Autosuggest needs to populate the input
 // based on the clicked suggestion. Teach Autosuggest how to calculate the
 // input value for every given suggestion.
@@ -34,9 +25,37 @@ class Devicons extends Component {
         this.state = {
             value: '',
             suggestions: [],
-            size: 0
+            size: 0,
+            items: []
         };
     }
+
+    componentDidMount(){
+        fetch("https://cdn.rawgit.com/konpa/devicon/68b52f74/devicon.json")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        items: result
+                    });
+                    console.log("Result from JSON",result)
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+                (error) => {
+                }
+            )
+    }
+
+    getSuggestions = value => {
+        const inputValue = value.trim().toLowerCase();
+        const inputLength = inputValue.length;
+
+        return inputLength === 0 ? [] : this.state.items.filter(lang =>
+            lang.name.toLowerCase().slice(0, inputLength) === inputValue
+        );
+    };
 
     onChange = (event, { newValue }) => {
         this.setState({
@@ -48,7 +67,7 @@ class Devicons extends Component {
     // You already implemented this logic above, so just use it.
     onSuggestionsFetchRequested = ({ value }) => {
         this.setState({
-            suggestions: getSuggestions(value)
+            suggestions: this.getSuggestions(value)
         });
     };
 

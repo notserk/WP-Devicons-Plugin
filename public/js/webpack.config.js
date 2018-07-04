@@ -7,7 +7,7 @@ const BrowserPack = require('browser-sync-webpack-plugin');
 
 module.exports = {
     mode: 'development',
-    entry: './js/index.js',
+    entry: './jsx/index.js',
     output: {
         path: path.resolve('output'),
         filename: 'index_bundle.js',

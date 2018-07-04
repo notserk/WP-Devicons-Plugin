@@ -21,9 +21,6 @@ class Devicons
         //Register Shortcode
         add_shortcode('devicons', array($this, 'loadView'));
 
-        //Add TinyMCE Buttons
-        //add_action('init', array($this, 'addEditorButtons'));
-
         //Add media button
         add_action('media_buttons', array($this, 'add_devicon_media_button'));
     }
@@ -35,16 +32,11 @@ class Devicons
             array(),
             '0.1.0'
         );
-//        wp_enqueue_style('size-devicon',
-//            plugins_url('devicons/public/size-devicon.css'),
-//            array(),
-//            '0.1.0'
-//            );
     }
 
     public function add_devicon_media_button(){
         //attach react app here
-        wp_enqueue_script('hello-react', plugin_dir_url( __FILE__ ) . 'dist/output/index_bundle.js', array(), '1.0', true);
+        wp_enqueue_script('devicons-js', plugin_dir_url( __FILE__ ) . 'js/output/index_bundle.js', array(), '1.0', true);
         wp_enqueue_style('devicon-min-css', 'https://cdn.rawgit.com/konpa/devicon/68b52f74/devicon.min.css', array(), '1.0');
         echo '<div id="root"></div>';
     }
@@ -52,32 +44,21 @@ class Devicons
     //Handles both the view and parameters for the shortcode
     public function loadView($atts){
 
-        $atts = shortcode_atts(
+        $shortcode_atts = shortcode_atts(
             array(
                 'name' => 'Enter Name',
                 'style' => 'Enter Color/Style',
                 'colored' => 'false',
                 'size' => 'm'
-            ), $atts, 'test' );
+            ), $atts, 'devicons' );
 
         //Mapped technologies and their corresponding font styles
-        $mapped = $this->mapDevicon($atts['name'], $atts['style']);
+        //$mapped = $this->mapDevicon($atts['name'], $atts['style']);
+
+
+
+
         require(plugin_dir_path(__FILE__) . 'shortcode-view.php');
-    }
-
-    public function addEditorButtons(){
-        add_filter('mce_external_plugins', array($this, 'devicons_add_buttons'));
-        add_filter('mce_buttons', array($this, 'devicons_register_buttons'));
-    }
-
-    public function devicons_add_buttons($plugin_array){
-        $plugin_array['devicons'] = plugins_url('devicons/public/editor-button.js');
-        return $plugin_array;
-    }
-
-    public function devicons_register_buttons($buttons){
-        array_push($buttons, 'devicons');
-        return $buttons;
     }
 
     private function getDevicons(){
